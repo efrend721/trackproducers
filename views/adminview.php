@@ -1,0 +1,105 @@
+<?php
+include_once '../libraries/components.php';
+include_once '../classes/managermain.classes.php';
+include_once '../classes/sidebarmain.classes.php';
+
+
+session_start();
+
+
+
+echo $head;
+class UserSession {
+  
+    public function displaySidebar() {
+        $sidebar = new sidebarMain;
+        $sidebar->getSidebarMain();
+
+    }
+    
+    public function displayManagermain () {
+        $managermain = new ManagerMain;
+        $managermain->getManagerquery();
+    }
+    
+
+    private function printUserDetails($userName) {
+        echo "<!-- top navigation bar -->
+        <nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>
+          <div class='container-fluid'>
+            <button
+              class='navbar-toggler'
+              type='button'
+              data-bs-toggle='offcanvas'
+              data-bs-target='#sidebar'
+              aria-controls='offcanvasExample'
+            >
+              <span class='navbar-toggler-icon' data-bs-target='#sidebar'></span>
+            </button>
+            <a
+              class='navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold'
+              href='#'>kingsWood</a>
+            <button
+              class='navbar-toggler'
+              type='button'
+              data-bs-toggle='collapse'
+              data-bs-target='#topNavBar'
+              aria-controls='topNavBar'
+              aria-expanded='false'
+              aria-label='Toggle navigation'
+            >
+              <span class='navbar-toggler-icon'></span>
+            </button>
+            <div class='collapse navbar-collapse' id='topNavBar'>
+              <form class='d-flex ms-auto my-3 my-lg-0'>
+                <div class='input-group'>
+                  <input
+                    class='form-control'
+                    type='search'
+                    placeholder='Search'
+                    aria-label='Search'
+                  />
+                  <button class='btn btn-primary' type='submit'>
+                    <i class='bi bi-search'></i>
+                  </button>
+                </div>
+              </form>
+              <div class='d-flex fw-bold '>
+                <span class='text-white bg-dark p-2'>{$userName}</span>
+              </div>
+              <ul class='navbar-nav'>
+                <li class='nav-item dropdown'>
+                  <a class='nav-link dropdown-toggle ms-2' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                    <i class='bi bi-person-fill'></i>
+                  </a>
+                  <ul class='dropdown-menu dropdown-menu-end'>
+                    <li><a class='dropdown-item' href='../includes/logout.inc.php'>Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- top navigation bar -->
+        ";
+        echo "\n" ;
+    }
+    public function displayUserDetails() {
+        
+        if(isset($_SESSION['name_user'])){
+        
+        $this->printUserDetails($_SESSION["name_user"]);
+        
+        }
+        
+    } 
+    
+}
+
+$userSession = new UserSession;
+$userSession->displayUserDetails();
+$userSession->displaySidebar();
+$userSession->displayManagermain();
+
+echo $footer;
+?>

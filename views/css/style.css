@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+body,
+button {
+  font-family: "Inter", sans-serif;
+}
+:root {
+  --offcanvas-width: 270px;
+  --topNavbarHeight: 56px;
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: calc(100% - var(--topNavbarHeight));
+    top: var(--topNavbarHeight);
+  }
+}
+
+.progress-circle {
+  max-width: flex;   /* Ajusta este valor según necesites */
+  margin: auto; /* Centra el canvas en el div */ 
+  height: 0; /* Esto hace que el contenedor sea cuadrado */
+  padding-bottom: 100%; /* Mantiene la relación de aspecto */
+  position: relative; /* Esto permite que el texto se posicione correctamente */
+}
+
+.camera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px #ccc;
+}
+
+#video {
+  border: 1px solid black;
+}
+
+#startbutton {
+  background-color: #0095f6;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#canvas {
+  display: none;
+}
+.image-preview {
+  margin: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#previewArea {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.pre_Gallery img {
+  width: 50px;  /* Cambia esto al tamaño deseado para las miniaturas */
+  height: auto;  /* Mantiene la proporción de la imagen */
+  border-radius: 8px;
+  margin: 5px;
+  transition: transform 0.2s; /* Animación para el efecto de zoom al pasar el mouse */
+  cursor: pointer;
+  display: inline-block; /* Asegura que las imágenes se alineen en línea */
+}
+
+.gallery img:hover {
+  transform: scale(1.05); /* Efecto zoom al pasar el mouse */
+}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  display: flex; /* Using flex to center the content */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+}
+
+.modal-content {
+  width: auto; /* Width should be auto, allowing it to expand based on the image size */
+  max-width: 90%; /* Maximum width */
+  max-height: 80%; /* Maximum height, keeping padding from the top and bottom screen edges */
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Crea 4 columnas de igual tamaño */
+  gap: 10px; /* Espacio entre los elementos de la cuadrícula */
+  padding: 10px; /* Espaciado alrededor de toda la cuadrícula */
+}
+
+.photo-item {
+  background-color: #f8f9fa; /* Color de fondo ligero para cada ítem, opcional */
+  border: 1px solid #dee2e6; /* Bordes sutiles para cada ítem, opcional */
+}
+
+.photo-item a {
+  display: block; /* Hace que el enlace llene el contenedor .photo-item */
+  padding: 8px; /* Espaciado interno para el enlace */
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  color: black; /* Establece el color del texto de los enlaces */
+  text-align: center; /* Centra el texto dentro del enlace */
+}
+
+.photo-item a:hover {
+  background-color: #e2e6ea; /* Color de fondo cuando se pasa el mouse sobre el enlace */
+}
+
+@media (max-width: 600px) {
+  .photo-grid {
+      grid-template-columns: repeat(2, 1fr); /* Solo 2 columnas en pantallas pequeñas */
+  }
+}
+
+/* Estilos específicos para el modal personalizado */
+.customModal {
+  display: none; /* Oculto por defecto */
+  position: fixed; /* Se queda en su lugar */
+  z-index: 2; /* Encima de todo lo demás */
+  left: 0;
+  top: 0;
+  width: 100%; /* Anchura completa */
+  height: 100%; /* Altura completa */
+  overflow: auto; /* Habilitar desplazamiento si es necesario */
+  background-color: rgba(0,0,0,0.4); /* Color de fondo con opacidad */
+}
+
+/* Contenedor del modal que centra el contenido */
+.customModal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% desde arriba y centrado horizontalmente */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* 80% del ancho de la ventana */
+}
+
+/* Nuevas reglas CSS */
+.video-container-custom {
+  width: 100%;
+  max-width: 600px; /* Ajusta según tus necesidades */
+  margin: 0 auto;
+  position: relative;
+}
+
+.video-custom {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.canvas-custom {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+.video-wrapper-custom {
+  width: 100%;
+  max-width: 600px; /* Ajusta este valor al ancho máximo deseado */
+  margin: 0 auto;
+  position: relative;
+}
+
+.video-responsive-custom {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+
+
