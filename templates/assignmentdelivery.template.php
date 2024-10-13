@@ -1,4 +1,5 @@
 <?php
+// comment*/ */;
 function renderAssignmentDelivery($stmt1, $dbh, $deliveriesquery) {
     ob_start();
 echo <<<HTML
