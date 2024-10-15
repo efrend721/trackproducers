@@ -52,7 +52,7 @@ class ProyectoCronometro {
         minutos = (minutos < 10 ? '0' : '') + minutos;
         segundos = (segundos < 10 ? '0' : '') + segundos;
 
-        let textoCronometro = `${dias} días, ${horas}:${minutos}:${segundos}`;
+        let textoCronometro = `${dias} days, ${horas}:${minutos}:${segundos}`;
         this.elemento.innerText = textoCronometro;
 
         if (this.diferenciaMilisegundos > this.lTimeMilisegundos ) {
