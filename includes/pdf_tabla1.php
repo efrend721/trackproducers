@@ -1,8 +1,8 @@
 <?php
 require('../libraries/fpdf/mc_table.php');
 
-//$currentDate = date('Y-m-d');
-$currentDate = '2024-08-18';
+$currentDate = date('Y-m-d');
+//$currentDate = '2024-08-18';
 
 $user = $_SESSION["name_user"];
 
